@@ -32,8 +32,11 @@ private:
   // return 2 if num
   int isAlphaNum(std::string str) {
     long unsigned int digit = 0, alpha = 0;
+    if (str.c_str()[0] == '-') {
+      digit++;
+    }
     for (int i = 0; i < str.length(); i++) {
-      if (std::isalnum(str.c_str()[i]) == 0) {
+      if (std::isalnum(str.c_str()[i]) == 0 && str.c_str()[0] != '-') {
 	return 0;
       }
       if (std::isalpha(str.c_str()[i]) != 0) {
@@ -45,7 +48,7 @@ private:
     }
     if (alpha == str.length()) {
       return 1;
-    } else if (digit == str.length()) {
+    } else if (digit >=  str.length()) {
       return 2;
     }
     return 3;
@@ -75,12 +78,14 @@ private:
     int B = 0;
     // if alpha + in map
 
+
     if (isAlphaNum(a) == 1 && variables.find(a) != variables.end()) {
       A = variables.at(a);
     } else if (isAlphaNum(a) == 2) {
+
       A = std::stoi(a);
     }
-
+    
     if (isAlphaNum(b) == 1 && variables.find(b) != variables.end()) {
       B	= variables.at(b);
     } else if (isAlphaNum(b) == 2) {
